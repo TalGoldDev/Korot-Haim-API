@@ -1,5 +1,5 @@
 import express from "express";
-import { accessControlAllowOrigin } from "../middleware";
+import { accessControlAllowOrigin } from "./middleware";
 
 const app = express();
 app.use(accessControlAllowOrigin);

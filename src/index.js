@@ -1,11 +1,10 @@
 import express from "express";
-import { accessControlAllowOrigin } from "./middleware";
+import { accessControlAllowOrigin, generatePDF } from "./middleware";
 
 const app = express();
 app.use(accessControlAllowOrigin);
+app.use(express.json());
 
-app.post("/", function (req, res) {
-  res.send("hello-world");
-});
+app.post("/", generatePDF);
 
 export default app;

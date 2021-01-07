@@ -1,3 +1,5 @@
+import { generatePDFFromData } from "../generator";
+
 export function generatePDF(req, res, next) {
   let pdf = generatePDFFromData(req.body);
   pdf.pipe(res);

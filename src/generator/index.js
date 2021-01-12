@@ -1,13 +1,23 @@
 import puppeteer from "puppeteer";
 import fs from "fs-extra";
 import hbs from "handlebars";
-function generatePDFFromHTML(formData) {
+import path from "path";
+
+const compile = async function (templateName, data) {
+  const filePath = path.join(__dirname, "templates", `${templateName}.hbs`);
+  const html = await fs.readFile(filePath, "utf-8");
+  return hbs.compile(html)(data);
+};
+
+const generatePDFFromHTML = async function (data) {
   (async function () {
     try {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
 
-      await page.setContent("<h1>שלום</h1>");
+      const content = await compile(`template${data.selectedTemplate}`, data);
+
+      await page.setContent(content);
       await page.emulateMediaType("screen");
       await page.pdf({
         path: "mypdf.pdf",
@@ -22,6 +32,6 @@ function generatePDFFromHTML(formData) {
       console.log("error", e);
     }
   })();
-}
+};
 
 export { generatePDFFromHTML };

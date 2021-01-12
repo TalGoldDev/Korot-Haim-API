@@ -1,9 +1,14 @@
 import { generatePDFFromHTML } from "../generator";
+import fs from "fs";
 
-export function generatePDF(req, res, next) {
-  let pdf = generatePDFFromHTML(req.body);
+export async function generatePDF(req, res, next) {
+  await generatePDFFromHTML(req.body);
   // pdf.pipe(res);
-  res.send("hello world");
+  const pdfPath = `${process.cwd()}\\mypdf.pdf`;
+  var data = fs.readFileSync(pdfPath);
+  res.contentType("application/pdf");
+  res.send(data);
+
   return;
 }
 

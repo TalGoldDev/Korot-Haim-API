@@ -105,3 +105,6 @@ dist
 
 # pdf files
 *.pdf
+
+# html files
+*.html

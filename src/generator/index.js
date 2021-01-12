@@ -10,28 +10,25 @@ const compile = async function (templateName, data) {
 };
 
 const generatePDFFromHTML = async function (data) {
-  (async function () {
-    try {
-      const browser = await puppeteer.launch();
-      const page = await browser.newPage();
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
 
-      const content = await compile(`template${data.selectedTemplate}`, data);
+    const content = await compile(`template${data.selectedTemplate}`, data);
 
-      await page.setContent(content);
-      await page.emulateMediaType("screen");
-      await page.pdf({
-        path: "mypdf.pdf",
-        format: "A4",
-        printBackground: true,
-      });
+    await page.setContent(content);
+    await page.emulateMediaType("screen");
+    await page.pdf({
+      path: "mypdf.pdf",
+      format: "A4",
+      printBackground: true,
+    });
 
-      console.log("done");
-      await browser.close();
-      process.exit();
-    } catch (e) {
-      console.log("error", e);
-    }
-  })();
+    console.log("done");
+    await browser.close();
+  } catch (e) {
+    console.log("error", e);
+  }
 };
 
 export { generatePDFFromHTML };

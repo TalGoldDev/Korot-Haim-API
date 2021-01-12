@@ -1,20 +1,27 @@
-import latex from "node-latex";
-import getTemplateData from "./templates";
+import puppeteer from "puppeteer";
+import fs from "fs-extra";
+import hbs from "handlebars";
+function generatePDFFromHTML(formData) {
+  (async function () {
+    try {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
 
-/**
- * Generates a LaTeX document from the request body,
- * and then generates a PDF from that document.
- *
- * @param formData The request body received from the client.
- *
- * @return The generated PDF.
- */
+      await page.setContent("<h1>שלום</h1>");
+      await page.emulateMediaType("screen");
+      await page.pdf({
+        path: "mypdf.pdf",
+        format: "A4",
+        printBackground: true,
+      });
 
-function generatePDFFromData(formData) {
-  const { texDoc, opts } = getTemplateData(formData);
-  const pdf = latex(texDoc, opts);
-
-  return pdf;
+      console.log("done");
+      await browser.close();
+      process.exit();
+    } catch (e) {
+      console.log("error", e);
+    }
+  })();
 }
 
-export { generatePDFFromData };
+export { generatePDFFromHTML };

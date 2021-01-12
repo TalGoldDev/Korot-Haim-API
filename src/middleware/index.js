@@ -1,8 +1,9 @@
-import { generatePDFFromData } from "../generator";
+import { generatePDFFromHTML } from "../generator";
 
 export function generatePDF(req, res, next) {
-  let pdf = generatePDFFromData(req.body);
-  pdf.pipe(res);
+  let pdf = generatePDFFromHTML(req.body);
+  // pdf.pipe(res);
+  res.send("hello world");
   return;
 }
 

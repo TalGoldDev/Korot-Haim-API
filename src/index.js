@@ -5,6 +5,6 @@ const app = express();
 app.use(accessControlAllowOrigin);
 app.use(express.json());
 
-app.post("/", generatePDF);
+app.get("/", generatePDF);
 
 export default app;

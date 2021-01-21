@@ -3,7 +3,6 @@ import fs from "fs";
 
 export async function generatePDF(req, res, next) {
   await generatePDFFromHTML(req.body);
-  // pdf.pipe(res);
   const pdfPath = `${process.cwd()}\\mypdf.pdf`;
   var data = fs.readFileSync(pdfPath);
   res.contentType("application/pdf");

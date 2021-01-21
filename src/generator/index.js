@@ -15,8 +15,6 @@ const generatePDFFromHTML = async function (data, requestNumber) {
       format: "A4",
       printBackground: true,
     });
-
-    console.log("done");
     await browser.close();
   } catch (e) {
     console.log("error", e);

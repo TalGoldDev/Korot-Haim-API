@@ -4,6 +4,7 @@ const fs = require("fs");
 let requestCount = 0;
 
 async function generatePDF(req, res, next) {
+  console.log("testing: " + req.body);
   await generatePDFFromHTML(req.body, requestCount);
   // pdf.pipe(res);
   const pdfPath = `${process.cwd()}\\pdf` + requestCount + `.pdf`;

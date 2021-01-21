@@ -7,27 +7,30 @@ let requestCount = 0;
 
 async function generatePDF(req, res, next) {
   console.log("testing: " + req.body);
-  await generatePDFFromHTML(req.body, requestCount);
+  let boolPdf = await generatePDFFromHTML(req.body, requestCount);
   // pdf.pipe(res);
-  const pdfPath = path.join(process.cwd(), "pdf" + requestCount + ".pdf");
-  requestCount++;
 
-  //var data = fs.readFileSync(pdfPath);
-  const readFile = util.promisify(fs.readFile);
-  const data = await readFile(pdfPath);
+  if (boolPdf) {
+    const pdfPath = path.join(process.cwd(), "pdf" + requestCount + ".pdf");
+    requestCount++;
 
-  res.contentType("application/pdf");
-  res.send(data);
-  console.log("done generating request #:" + requestCount);
+    //var data = fs.readFileSync(pdfPath);
+    const readFile = util.promisify(fs.readFile);
 
-  fs.unlink(pdfPath, (err) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    //file removed
-  });
+    const data = await readFile(pdfPath);
 
+    res.contentType("application/pdf");
+    res.send(data);
+    console.log("done generating request #:" + requestCount);
+
+    fs.unlink(pdfPath, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      //file removed
+    });
+  }
   return;
 }
 

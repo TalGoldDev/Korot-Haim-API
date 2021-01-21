@@ -22,7 +22,10 @@ async function generatePDF(req, res, next) {
 
     let counter = 0;
     while (!fs.existsSync(pdfPath)) {
-      if (counter > 10) return;
+      if (counter > 10) {
+        requestCount--;
+        return;
+      }
       await sleep(100);
     }
 

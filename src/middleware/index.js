@@ -17,6 +17,10 @@ async function generatePDF(req, res, next) {
     //var data = fs.readFileSync(pdfPath);
     const readFile = util.promisify(fs.readFile);
 
+    while (!fs.existsSync(pdfPath)) {
+      delay(250);
+    }
+
     const data = await readFile(pdfPath);
 
     res.contentType("application/pdf");

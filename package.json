@@ -25,5 +25,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "puppeteer": "^5.5.0"
+  },
+  "engines": {
+    "node": "15.5"
   }
 }

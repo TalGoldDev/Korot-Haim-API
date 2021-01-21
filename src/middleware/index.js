@@ -1,13 +1,25 @@
 import { generatePDFFromHTML } from "../generator";
 import fs from "fs";
 
+let requestCount = 0;
+
 export async function generatePDF(req, res, next) {
-  await generatePDFFromHTML(req.body);
+  await generatePDFFromHTML(req.body, requestCount);
   // pdf.pipe(res);
-  const pdfPath = `${process.cwd()}\\mypdf.pdf`;
+  const pdfPath = `${process.cwd()}\\pdf` + requestCount + `.pdf`;
+  requestCount++;
   var data = fs.readFileSync(pdfPath);
   res.contentType("application/pdf");
   res.send(data);
+  console.log("done generating request #:" + requestCount);
+
+  fs.unlink(pdfPath, (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    //file removed
+  });
 
   return;
 }

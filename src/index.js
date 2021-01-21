@@ -7,8 +7,4 @@ app.use(express.json());
 
 app.post("/", generatePDF);
 
-app.post("/", (req, res) => {
-  res.send();
-});
-
 export default app;

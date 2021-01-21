@@ -3,16 +3,15 @@ import fs from "fs-extra";
 import hbs from "handlebars";
 import path from "path";
 
-const generatePDFFromHTML = async function (data) {
+const generatePDFFromHTML = async function (data, requestNumber) {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    console.log(data);
     await page.setContent(data.html);
     await page.emulateMediaType("screen");
     await page.pdf({
-      path: "mypdf.pdf",
+      path: "pdf" + requestNumber + ".pdf",
       format: "A4",
       printBackground: true,
     });

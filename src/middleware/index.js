@@ -1,5 +1,6 @@
 const generatePDFFromHTML = require("../generator").generatePDFFromHTML;
 const fs = require("fs");
+let path = require("path");
 
 let requestCount = 0;
 
@@ -7,7 +8,7 @@ async function generatePDF(req, res, next) {
   console.log("testing: " + req.body);
   await generatePDFFromHTML(req.body, requestCount);
   // pdf.pipe(res);
-  const pdfPath = `${process.cwd()}\\pdf` + requestCount + `.pdf`;
+  const pdfPath = path.join(process.cwd(), "pdf" + requestCount + ".pdf");
   requestCount++;
   var data = fs.readFileSync(pdfPath);
   res.contentType("application/pdf");

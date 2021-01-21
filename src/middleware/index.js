@@ -20,8 +20,10 @@ async function generatePDF(req, res, next) {
     //var data = fs.readFileSync(pdfPath);
     const readFile = util.promisify(fs.readFile);
 
+    let counter = 0;
     while (!fs.existsSync(pdfPath)) {
-      await sleep(250);
+      if (counter > 10) return;
+      await sleep(100);
     }
 
     const data = await readFile(pdfPath);

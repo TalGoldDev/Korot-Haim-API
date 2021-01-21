@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 const generatePDFFromHTML = async function (data, requestNumber) {
   try {
     const browser = await puppeteer.launch({
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: ["--no-sandbox"],
     });
     const page = await browser.newPage();
 

@@ -5,6 +5,9 @@ const util = require("util");
 
 let requestCount = 0;
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 async function generatePDF(req, res, next) {
   console.log("testing: " + req.body);
   let boolPdf = await generatePDFFromHTML(req.body, requestCount);
@@ -18,7 +21,7 @@ async function generatePDF(req, res, next) {
     const readFile = util.promisify(fs.readFile);
 
     while (!fs.existsSync(pdfPath)) {
-      delay(250);
+      await sleep(250);
     }
 
     const data = await readFile(pdfPath);

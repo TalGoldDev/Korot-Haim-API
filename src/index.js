@@ -1,5 +1,7 @@
-import express from "express";
-import { accessControlAllowOrigin, generatePDF } from "./middleware";
+const express = require("express");
+const accessControlAllowOrigin = require("./middleware")
+  .accessControlAllowOrigin;
+const generatePDF = require("./middleware").generatePDF;
 
 const app = express();
 app.use(accessControlAllowOrigin);
@@ -11,4 +13,4 @@ app.get("/hello", (req, res) => {
   console.log("hello world");
 });
 
-export default app;
+exports.app = app;

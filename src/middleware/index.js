@@ -1,9 +1,9 @@
-import { generatePDFFromHTML } from "../generator";
-import fs from "fs";
+const generatePDFFromHTML = require("../generator").generatePDFFromHTML;
+const fs = require("fs");
 
 let requestCount = 0;
 
-export async function generatePDF(req, res, next) {
+async function generatePDF(req, res, next) {
   await generatePDFFromHTML(req.body, requestCount);
   // pdf.pipe(res);
   const pdfPath = `${process.cwd()}\\pdf` + requestCount + `.pdf`;
@@ -24,7 +24,9 @@ export async function generatePDF(req, res, next) {
   return;
 }
 
-export function accessControlAllowOrigin(req, res, next) {
+exports.generatePDF = generatePDF;
+
+function accessControlAllowOrigin(req, res, next) {
   // Website you wish to allow to connect
   res.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -47,3 +49,5 @@ export function accessControlAllowOrigin(req, res, next) {
   // Pass to next layer of middleware
   next();
 }
+
+exports.accessControlAllowOrigin = accessControlAllowOrigin;

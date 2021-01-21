@@ -1,7 +1,4 @@
-import puppeteer from "puppeteer";
-import fs from "fs-extra";
-import hbs from "handlebars";
-import path from "path";
+const puppeteer = require("puppeteer");
 
 const generatePDFFromHTML = async function (data, requestNumber) {
   try {
@@ -21,4 +18,4 @@ const generatePDFFromHTML = async function (data, requestNumber) {
   }
 };
 
-export { generatePDFFromHTML };
+exports.generatePDFFromHTML = generatePDFFromHTML;

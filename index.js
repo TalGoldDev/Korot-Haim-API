@@ -1,4 +1,4 @@
-import app from "./src";
+const app = require("./src/index.js").app;
 
 const port = process.env.PORT || 80;
 const server = app.listen(port);

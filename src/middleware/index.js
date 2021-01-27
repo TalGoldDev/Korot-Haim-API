@@ -9,15 +9,12 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 async function generatePDF(req, res, next) {
-  console.log("testing: " + req.body);
   let boolPdf = await generatePDFFromHTML(req.body, requestCount);
-  // pdf.pipe(res);
 
   if (boolPdf) {
     const pdfPath = path.join(process.cwd(), "pdf" + requestCount + ".pdf");
     requestCount++;
 
-    //var data = fs.readFileSync(pdfPath);
     const readFile = util.promisify(fs.readFile);
 
     let counter = 0;
@@ -33,7 +30,7 @@ async function generatePDF(req, res, next) {
 
     res.contentType("application/pdf");
     res.send(data);
-    console.log("done generating request #:" + requestCount);
+    console.log("request #:" + requestCount + " status:complete");
 
     fs.unlink(pdfPath, (err) => {
       if (err) {
@@ -61,7 +58,7 @@ function accessControlAllowOrigin(req, res, next) {
   // Request headers you wish to allow
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type,responseType,accept"
+    "X-Requested-With,content-type,responseType,accept,Authorization"
   );
 
   // Set to true if you need the website to include cookies in the requests sent

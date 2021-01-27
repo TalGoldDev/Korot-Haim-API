@@ -10,7 +10,7 @@ app.use(express.json());
 app.post("/", generatePDF);
 
 app.get("/hello", (req, res) => {
-  console.log("hello world");
+  console.log("waking up server");
 });
 
 exports.app = app;

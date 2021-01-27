@@ -11,7 +11,7 @@ app.post("/", generatePDF);
 
 app.get("/hello", (req, res) => {
   console.log("waking up server");
-  res.send();
+  res.send({msg: "hello from server!"});
 });
 
 exports.app = app;
